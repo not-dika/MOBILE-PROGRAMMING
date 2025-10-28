@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      // home: Scaffold(body: Center(child: Text("Hello World")), appBar: AppBar(title: Text("Pertemuan 1", style: TextStyle(color: Colors.black),), backgroundColor: Colors.red,),)
       home: const MyHomePage(title: 'Pertemuan 1'),
     );
   }
@@ -27,11 +28,10 @@ class Mahasiswa {
   Mahasiswa(this.nama, this.nim, this.jurusan);
 
   String tampilData() {
-    return
-    'Data Mahasiswa\n'
-    'Nama: $nama\n'
-    'NIM: $nim\n'
-    'Jurusan: $jurusan';
+    return 'Data Mahasiswa\n'
+        'Nama: $nama\n'
+        'NIM: $nim\n'
+        'Jurusan: $jurusan';
   }
 
   void ubahJurusan(String jurusanBaru) {
@@ -52,7 +52,8 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Mahasiswa> daftarMahasiswa = [];
 
   void editJurusan(Mahasiswa mahasiswa) {
-    TextEditingController controller = TextEditingController(text: mahasiswa.jurusan);
+    TextEditingController controller =
+        TextEditingController(text: mahasiswa.jurusan);
 
     showDialog(
       context: context,
@@ -153,13 +154,27 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   Text('${mhs.tampilData()}', style: TextStyle(fontSize: 16)),
                   SizedBox(height: 12),
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: ElevatedButton.icon(
-                      onPressed: () => editJurusan(mhs),
-                      icon: Icon(Icons.edit),
-                      label: Text('Edit Jurusan'),
-                    ),
+                  Row(
+                    children: [
+                      ElevatedButton.icon(
+                        onPressed: () => editJurusan(mhs),
+                        icon: Icon(Icons.edit),
+                        label: Text('Edit Jurusan'),
+                      ),
+                      SizedBox(width: 8),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          setState(() {
+                            daftarMahasiswa.removeAt(index);
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                        ),
+                        icon: Icon(Icons.delete),
+                        label: Text('Hapus'),
+                      ),
+                    ],
                   ),
                 ],
               ),
